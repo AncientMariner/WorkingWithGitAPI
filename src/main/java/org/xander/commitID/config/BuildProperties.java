@@ -49,6 +49,8 @@ public class BuildProperties {
 
     @PostConstruct
     public void writeConfigurationToLog() {
-        LOGGER.info("Starting application with the following build properties: {}", this);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Starting application with the following build properties: {}", this);
+        }
     }
 }

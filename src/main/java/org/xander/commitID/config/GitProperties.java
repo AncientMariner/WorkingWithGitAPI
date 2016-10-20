@@ -73,6 +73,8 @@ public class GitProperties {
 
     @PostConstruct
     public void writeGitCommitInformationToLog() {
-        LOGGER.info("Starting application with the following Git commit: {}", this);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Starting application with the following Git commit: {}", this);
+        }
     }
 }

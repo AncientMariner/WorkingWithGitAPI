@@ -69,6 +69,8 @@ public final class ApplicationProperties {
 
     @PostConstruct
     public void writeConfigurationToLog() {
-        LOGGER.info("Starting application by using configuration: {}", this);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Starting application by using configuration: {}", this);
+        }
     }
 }
