@@ -13,7 +13,7 @@ public class GitPropertiesTest {
 
     public static class CreateNew {
 
-        private final String BRANCH = "master";
+        private final String BRANCH = "main";
         private final BuildProperties BUILD_PROPERTIES = mock(BuildProperties.class);
         private final CommitProperties COMMIT_PROPERTIES = mock(CommitProperties.class);
         private final boolean DIRTY = true;
