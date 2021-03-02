@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class ShowLogCherryPick {
     private static String pathname;
     private Set<String> setOfHashesForAuxiliaryBranch;
-    private Set<RevCommit> setOfCommitsOnMasterBranch;
+    private Set<RevCommit> setOfCommitsOnMainBranch;
     private Set<RevCommit> setOfCommitsOnAuxBranch;
     private static Repository repository;
 
@@ -28,7 +28,7 @@ public class ShowLogCherryPick {
 //        System.out.println(workingDirectory);
 
         if (args[0] == null || args[1] == null || args[2] == null) {
-            throw new RuntimeException("Please specify parameters correctly. (branch to compare with master, path to repository, path to ignore file)");
+            throw new RuntimeException("Please specify parameters correctly. (branch to compare with main, path to repository, path to ignore file)");
         }
 
         ShowLogCherryPick logCherryPick = new ShowLogCherryPick();
@@ -78,7 +78,7 @@ public class ShowLogCherryPick {
     private static Set<String> formCherryPickedCommitsOnMaster(ShowLogCherryPick logCherryPick) {
         Set<String> cherryPickedCommitsOnMaster = new HashSet<>();
         Pattern pattern = Pattern.compile(" ([0-9a-fA-F]+)[)]\\s*$");
-        for (RevCommit commit : logCherryPick.setOfCommitsOnMasterBranch) {
+        for (RevCommit commit : logCherryPick.setOfCommitsOnMainBranch) {
             Matcher matcher = pattern.matcher(commit.getFullMessage());
             if (matcher.find()) {
                 cherryPickedCommitsOnMaster.add(matcher.group(1));
@@ -182,7 +182,7 @@ public class ShowLogCherryPick {
         Iterator<RevCommit> it = rw.iterator();
 
         Set<String> setOfMessageHashes = new HashSet<>();
-        setOfCommitsOnMasterBranch = new HashSet<>();
+        setOfCommitsOnMainBranch = new HashSet<>();
 
         while (it.hasNext()) {
             RevCommit commit = it.next();
@@ -192,7 +192,7 @@ public class ShowLogCherryPick {
             c.setTimeInMillis((long) commit.getCommitTime() * 1000);
 
             if (c.get(Calendar.YEAR) >= 2014 && c.get(Calendar.MONTH) >= 1 && c.get(Calendar.DAY_OF_MONTH) >= 3) {
-                setOfCommitsOnMasterBranch.add(commit);
+                setOfCommitsOnMainBranch.add(commit);
             }
         }
         rw.dispose();
